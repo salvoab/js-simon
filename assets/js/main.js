@@ -21,6 +21,19 @@ function getRandomSequence(min, max, sequenceLength){
     return sequence;
 }
 
+function getPromptedNumber(){
+    do{
+        var invalidInput = false;
+        var number = parseInt(prompt("Inserisci un numero che ricordi"));
+        if(number === null || isNaN(number)){
+            alert("Attenzione! Puoi inserire solo un valore numerico");
+            invalidInput = true;
+        }
+    }while(invalidInput);
+    
+    return number;
+}
+
 var saimonSaysSequence = getRandomSequence(1, 50, 5);
 var elencoIndovinati = [];
 var time = 30000; // durante questo tempo (espresso in millisecondi) i numeri devono essere visibili
@@ -42,12 +55,11 @@ $(function(){
     //Chiedo all'utente i numeri che si ricorda dopo 30.2 secondi
     //Ho scelto questo approccio di separare cancellazione e prompt perché i prompt inseriti nel precedente setTimeout lasciavano visibili i numeri durante la fase di inserimento
     setTimeout(function () {
-        //Chiedo all'utente i numeri che si ricorda
         var message = $('#message');
         var lastMessage = $('#saimon-said');
         var userNumber;
         for(var i=0; i<saimonSaysSequence.length; i++){
-            userNumber = parseInt( prompt("Inserisci un numero che ricordi") );
+            userNumber = getPromptedNumber();
             if(saimonSaysSequence.includes(userNumber) && !elencoIndovinati.includes(userNumber)){
                 elencoIndovinati.push(userNumber);
             }
