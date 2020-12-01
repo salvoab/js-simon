@@ -37,13 +37,15 @@ function getRandomSequence(min, max, sequenceLength){
 
 /**
  * Richiede un numero tramite prompt e lo restituisce solo quando il valore inserito è effettivamente un numero.
+ * Il messaggio da mostrare nel prompt è richiesto come parametro.
  * 
+ * @param {string} message Stringa di testo da inserire nel prompt
  * @return {number} - Numero inserito dall'utente.
  */
-function getPromptedNumber(){
+function getPromptedNumber(message){
     do{
         var invalidInput = false;
-        var number = parseInt(prompt("Inserisci un numero che ricordi"));
+        var number = parseInt(prompt(message));
         if(number === null || isNaN(number)){
             alert("Attenzione! Puoi inserire solo un valore numerico");
             invalidInput = true;
@@ -83,7 +85,7 @@ $(function(){
         var lastMessage = $('#saimon-said');
         var userNumber;
         for(var i=0; i<saimonSaysSequence.length; i++){
-            userNumber = getPromptedNumber();
+            userNumber = getPromptedNumber("Inserisci un numero che ti ricordi");
             if(saimonSaysSequence.includes(userNumber) && !elencoIndovinati.includes(userNumber)){
                 elencoIndovinati.push(userNumber);
             }
