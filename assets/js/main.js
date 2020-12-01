@@ -56,7 +56,6 @@ function getPromptedNumber(message){
 }
 
 var saimonSaysSequence = getRandomSequence(1, 50, 5);
-var elencoIndovinati = [];
 var time = 30000; // durante questo tempo (espresso in millisecondi) i numeri devono essere visibili
 
 $(function(){
@@ -84,6 +83,7 @@ $(function(){
         var message = $('#message');
         var lastMessage = $('#saimon-said');
         var userNumber;
+        var elencoIndovinati = [];
         for(var i=0; i<saimonSaysSequence.length; i++){
             userNumber = getPromptedNumber("Inserisci un numero che ti ricordi");
             if(saimonSaysSequence.includes(userNumber) && !elencoIndovinati.includes(userNumber)){
