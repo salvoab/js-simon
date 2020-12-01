@@ -23,6 +23,7 @@ function getRandomSequence(min, max, sequenceLength){
 
 var saimonSaysSequence = getRandomSequence(1, 50, 5);
 var elencoIndovinati = [];
+var time = 30000; // durante questo tempo (espresso in millisecondi) i numeri devono essere visibili
 
 $(function(){
     function showNumbers(numbers){
@@ -33,9 +34,34 @@ $(function(){
     }
     showNumbers(saimonSaysSequence);
 
+    //Cancello i numeri mostrati all'utente dopo 30 secondi
     setTimeout(function () {
-        //Cancello i numeri mostrati all'utente
         $('#message').text(" ");
-        //TO-DO Chiedere all'utente i numeri che si ricorda
-    }, 5000);
+    }, time);
+
+    //Chiedo all'utente i numeri che si ricorda dopo 30.2 secondi
+    //Ho scelto questo approccio di separare cancellazione e prompt perché i prompt inseriti nel precedente setTimeout lasciavano visibili i numeri durante la fase di inserimento
+    setTimeout(function () {
+        //Chiedo all'utente i numeri che si ricorda
+        var message = $('#message');
+        var lastMessage = $('#saimon-said');
+        var userNumber;
+        for(var i=0; i<saimonSaysSequence.length; i++){
+            userNumber = parseInt( prompt("Inserisci un numero che ricordi") );
+            if(saimonSaysSequence.includes(userNumber) && !elencoIndovinati.includes(userNumber)){
+                elencoIndovinati.push(userNumber);
+            }
+            //preparo il messaggio finale
+            lastMessage.append(" " + saimonSaysSequence[i]);
+        }
+        message.text("Hai indovito " + elencoIndovinati.length + " numeri su 5");
+        if(elencoIndovinati.length > 0 ){
+            message.append(" e sono: ");
+        }
+        for(var i=0; i<elencoIndovinati.length; i++){
+            message.append(elencoIndovinati[i] + " ");
+        }
+        //Mostro il messaggio finale
+        lastMessage.show();
+    }, time+200);
 });
