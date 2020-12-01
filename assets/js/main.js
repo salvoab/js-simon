@@ -4,11 +4,25 @@
  * Dopo 30 secondi l’utente deve inserire, un prompt alla volta, i numeri che ha visto precedentemente.
  * Una volta inseriti i 5 numeri, il software dice quanti e quali numeri sono stati ricordati.
 ********************************************************************************************************/
-
+/**
+ * Genera un numero casuale intero compreso fra due estremi.
+ * 
+ * @param {number} min Minimo numero intero generabile.
+ * @param {number} max Massimo numero intero generabile.
+ * @return {number} - Numero generato randomicamente
+ */
 function getRandomNumber(min, max){
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+/**
+ * Genera un array di numeri interi casuali compresi fra un minimo e un massimo.
+ * 
+ * @param {number} min Minimo numero intero casuale generabile all'interno dell'array.
+ * @param {number} max Massimo numero intero casuale generabile all'interno dell'array.
+ * @param {number} sequenceLength Lunghezza dell'array da generare.
+ * @return {array} - Array di numeri casuali
+ */
 function getRandomSequence(min, max, sequenceLength){
     var sequence = [];
     var number;
@@ -21,6 +35,11 @@ function getRandomSequence(min, max, sequenceLength){
     return sequence;
 }
 
+/**
+ * Richiede un numero tramite prompt e lo restituisce solo quando il valore inserito è effettivamente un numero.
+ * 
+ * @return {number} - Numero inserito dall'utente.
+ */
 function getPromptedNumber(){
     do{
         var invalidInput = false;
@@ -39,6 +58,11 @@ var elencoIndovinati = [];
 var time = 30000; // durante questo tempo (espresso in millisecondi) i numeri devono essere visibili
 
 $(function(){
+    /**
+     * Mostra all'utente un array di numeri. Per il corretto funzionamento richiede un elemento html con id message.
+     * 
+     * @param {array} numbers Array contenente i numeri da mostrare
+     */
     function showNumbers(numbers){
         var message = $('#message');
         for(var i = 0; i<numbers.length; i++){
